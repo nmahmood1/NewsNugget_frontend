@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add News</title>
+  <link rel="stylesheet" type="text/css" href="create.css">
+  <script defer src="create.js"></script>
+<body>
+  <header>
+    <h1>Add News</h1>
+  </header>
+
+  <div class="form-container">
+    <form id="news-form">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url" required>
+      </div>
+
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" name="image">
+      </div>
+
+      <div class="form-group">
+        <label for="language">Language:</label>
+        <input type="text" id="language" name="language">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" name="category" multiple></select>
+      </div>
+
+      <div class="form-group">
+        <label for="published">Published Date:</label>
+        <input type="date" id="published" name="published">
+      </div>
+
+      <button type="submit">Add News</button>
+    </form>
+  </div>
+
+</body>
+</html>

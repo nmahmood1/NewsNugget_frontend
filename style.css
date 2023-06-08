@@ -1,0 +1,171 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container {
+  width: 90%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.navbar {
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-color: #2068de;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.navbar .logo a {
+  color: #f2f2f2;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+}
+.navbar .logo a:hover {
+  background-color: transparent;
+  color: #f2f2f2;
+}
+.navbar .menu a {
+  padding: 10px;
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar .menu a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar .menu a.active {
+  background-color: #1397de;
+  color: white;
+}
+.heading-left {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+.create-button {
+  text-align: center;
+  /* margin-bottom: 20px; */
+}
+
+.create-button a {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.create-button a:hover {
+  background-color: #555;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* grid responsiveness automatically adjust to single column layout */
+  gap: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 30px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.latest-news {
+  padding-top: 20px;
+}
+.latest-news .heading {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.news-card {
+  padding: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.news-card img {
+  width: 100%;
+}
+.news-card .title {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  line-height: normal;
+}
+.news-card .title span {
+  font-size: 10pt;
+}
+
+.news-card p {
+  text-align: left;
+  font-size: 10pt;
+  margin-top: 10px;
+}
+.news-card span {
+  text-align: right;
+  font-size: 9pt;
+  margin-top: 10px;
+}
+
+.news-card .action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.news-card .action .icon {
+  font-size: 16px;
+  cursor: pointer;
+}
+.news-card .action .edit {
+  color: #000000;
+}
+.news-card .action .delete {
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .navbar .logo a {
+    font-size: 16px;
+  }
+
+  .navbar .manu a {
+    font-size: 15px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar .logo a {
+    font-size: 14px;
+  }
+
+  .navbar .manu a {
+    font-size: 14px;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    width: 100%;
+  }
+}
