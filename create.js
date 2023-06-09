@@ -1,4 +1,5 @@
 // API endpoints stored in ENDPOINTS for reusability
+// const API_URL = "http://localhost:4002";
 const API_URL = "https://murmuring-badlands-02250.herokuapp.com";
 const ENDPOINTS = {
   ALL_CATEGORIES: `${API_URL}/categories/all`,
@@ -23,7 +24,7 @@ async function populateCategories() {
   const categories = await getAllCategories();
   const categoryOptions = categories
     .map(
-      (category) => `<option value="${category.name}">${category.name}</option>`
+      (category) => `<option value="${category._id}">${category.name}</option>`
     )
     .join("");
   categorySelect.innerHTML =

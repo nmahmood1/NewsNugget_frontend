@@ -3,6 +3,7 @@ const categorySelect = document.getElementById("categoryList");
 const newsSection = document.getElementById("news-section");
 
 // API endpoints stored in ENDPOINTS for reusability
+// const API_URL = "http://localhost:4002";
 const API_URL = "https://murmuring-badlands-02250.herokuapp.com";
 const ENDPOINTS = {
   ALL_NEWS: `${API_URL}/news/get`,
@@ -69,7 +70,7 @@ async function populateCategories() {
   const categories = await getAllCategories();
   const categoryOptions = categories
     .map(
-      (category) => `<option value="${category.name}">${category.name}</option>`
+      (category) => `<option value="${category._id}">${category.name}</option>`
     )
     .join("");
   categorySelect.innerHTML =
@@ -93,23 +94,25 @@ async function deleteNews(id) {
   throw new Error(`Request failed: ${response.status}`);
 }
 
-// Event listener for category selection
-categorySelect.addEventListener("change", (event) => {
-  showNews(event.target.value);
-});
-
-// Event listener for delete click
-newsSection.addEventListener("click", (event) => {
-  if (event.target.classList.contains("delete")) {
-    const id = event.target.dataset.newsId;
-    deleteNews(id);
-  }
-});
-
 // Initialize the application
 async function initializeApp() {
   await populateCategories();
   showNews();
 }
 
-initializeApp();
+document.addEventListener("DOMContentLoaded", function () {
+  // Event listener for category selection
+  categorySelect.addEventListener("change", (event) => {
+    showNews(event.target.value);
+  });
+
+  // Event listener for delete click
+  newsSection.addEventListener("click", (event) => {
+    if (event.target.classList.contains("delete")) {
+      const id = event.target.dataset.newsId;
+      deleteNews(id);
+    }
+  });
+
+  initializeApp();
+});

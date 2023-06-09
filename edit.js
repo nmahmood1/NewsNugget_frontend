@@ -1,13 +1,40 @@
+// const API_URL = "http://localhost:4002";
 const API_URL = "https://murmuring-badlands-02250.herokuapp.com";
+
 const ENDPOINTS = {
   GET_NEWS_BY_ID: `${API_URL}/news/get/`,
   UPDATE_NEWS: `${API_URL}/news/update/`,
+  ALL_CATEGORIES: `${API_URL}/categories/all`,
 };
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
+}
+async function getAllCategories() {
+  return fetchData(ENDPOINTS.ALL_CATEGORIES);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   const newsId = urlParams.get("id");
   const form = document.getElementById("edit-news-form");
   const errorMessage = document.getElementById("error-message");
+  const categorySelect = document.getElementById("category");
+
+  getAllCategories().then((categories) => {
+    const categoryOptions = categories
+      .map(
+        (category) =>
+          `<option value="${category._id}">${category.name}</option>`
+      )
+      .join("");
+    categorySelect.innerHTML = categoryOptions;
+  });
 
   //   GET NEWS BY ID AND SHOW IN THE FILEDS
   fetch(`${ENDPOINTS.GET_NEWS_BY_ID}${newsId}`)
@@ -27,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
       const publishedDate = new Date(data.published);
-      const formattedDate = publishedDate.toISOString().split('T')[0];
+      const formattedDate = publishedDate.toISOString().split("T")[0];
       form.published.value = formattedDate;
     })
     .catch((error) => {
@@ -38,35 +65,37 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event listener for form submission for update the news
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-   // Get the updated values from the form fields
-   const updatedNews = {
-    title: form.title.value,
-    description: form.description.value,
-    url: form.url.value,
-    author: form.author.value,
-    image: form.image.value,
-    language: form.language.value,
-    category: Array.from(form.category.selectedOptions).map(option => option.value),
-    published: form.published.value
-  };
+    // Get the updated values from the form fields
+    const updatedNews = {
+      title: form.title.value,
+      description: form.description.value,
+      url: form.url.value,
+      author: form.author.value,
+      image: form.image.value,
+      language: form.language.value,
+      category: Array.from(form.category.selectedOptions).map(
+        (option) => option.value
+      ),
+      published: form.published.value,
+    };
 
-  // Make the API call to update the news article
-  fetch(`${ENDPOINTS.UPDATE_NEWS}${newsId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(updatedNews)
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response data or redirect to a success page
-      window.location.href = 'index.html';
-      // Redirect to a success page or perform any other action
+    // Make the API call to update the news article
+    fetch(`${ENDPOINTS.UPDATE_NEWS}${newsId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedNews),
     })
-    .catch(error => {
-      console.error('Error:', error);
-      errorMessage.textContent = 'Failed to update the news article.';
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data or redirect to a success page
+        window.location.href = "index.html";
+        // Redirect to a success page or perform any other action
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        errorMessage.textContent = "Failed to update the news article.";
+      });
   });
 });
